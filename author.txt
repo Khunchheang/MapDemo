@@ -1,0 +1,2 @@
+This is a basic Android map demo app created for FE-CKCC students.
+Author: Malypoeur Plong
