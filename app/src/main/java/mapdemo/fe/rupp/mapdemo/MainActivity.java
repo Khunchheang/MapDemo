@@ -13,11 +13,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import mapdemo.fe.rupp.mapdemo.controller.LocationsMapper;
 import mapdemo.fe.rupp.mapdemo.utils.AppConst;
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private LocationsMapper locationMapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
     }
 
     @Override
@@ -36,10 +39,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
         mMap.setMyLocationEnabled(true);
 
-        // Add a marker in CKCC, and move the camera.
+        // Add a marker in IFL, and move the camera.
         LatLng geo_CKCC = new LatLng(11.569001, 104.888433);
         mMap.addMarker(new MarkerOptions().position(geo_CKCC).title("Cambodia-Korea Cooperation Center (CKCC)"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(geo_CKCC.latitude, geo_CKCC.longitude), AppConst.CAMERA_ZOOM));
 
+        // Load locations from DB
+        LocationsMapper loc = new LocationsMapper(getApplicationContext());
+        loc.loadLocations();
     }
+
 }
